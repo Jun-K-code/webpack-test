@@ -1,4 +1,6 @@
-# Webpack测试项目
+# Webpack 测试项目
+
+执行 npm ls --pattern webpack 查看 webpack 版本，这里项目的 webpack 版本是 5.91.0
 
 # Getting Started with Create React App
 

@@ -16,20 +16,19 @@ const configureWebpack = (webpackConfig, { env, paths }) => {
       ? 'assets/js/[name].[contenthash:8].chunk.js'
       : isEnvDevelopment && 'assets/js/[name].chunk.js',
   };
-  console.log('测试module', webpackConfig.module);
-  webpackConfig.module = {
-    ...webpackConfig.module,
-    rules: [
-      ...webpackConfig.module.rules,
-      {
-        test: /\.css$/i,
-        loader: 'css-loader',
-        options: {
-          modules: true,
-        },
-      },
-    ],
-  };
+  // webpackConfig.module = {
+  //   ...webpackConfig.module,
+  //   rules: [
+  //     ...webpackConfig.module.rules,
+  //     {
+  //       test: /\.css$/i,
+  //       loader: 'css-loader',
+  //       options: {
+  //         modules: true,
+  //       },
+  //     },
+  //   ],
+  // };
   return webpackConfig;
 };
 

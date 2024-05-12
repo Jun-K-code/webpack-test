@@ -19,7 +19,8 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
-    "css-loader": "^6.11.0"
+    "css-loader": "^6.11.0",
+    "webpack-bundle-analyzer": "^4.10.2"
   },
   "scripts": {
     "cracoStart": "craco start",

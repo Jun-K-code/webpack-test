@@ -1,3 +1,7 @@
 .test {
-  color: red;
+    width: 100vw;
+    height: 100vh;
+    background: url('src/assets/images/su7.png') no-repeat;
+    background-size: 100%;
+    color: red;
 }

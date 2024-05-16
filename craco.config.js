@@ -23,13 +23,13 @@ const configureWebpack = (webpackConfig, { env, paths }) => {
 module.exports = {
     webpack: {
         rules: [
-            {
-                test: /\.css$/i,
-                loader: 'css-loader',
-                options: {
-                    modules: true,
-                },
-            },
+            // {
+            //     test: /\.css$/i,
+            //     loader: 'css-loader',
+            //     options: {
+            //         modules: true,
+            //     },
+            // },
             // {
             //     test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/, /\.svg$/],
             //     type: 'asset/resource',

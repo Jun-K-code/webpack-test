@@ -2,6 +2,7 @@
 
 # dependencies
 /react/node_modules
+/native/node_modules
 /.pnp
 .pnp.js
 
@@ -10,6 +11,7 @@
 
 # production
 /react/build
+/native/build
 
 # misc
 .DS_Store

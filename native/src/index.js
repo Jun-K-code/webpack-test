@@ -1,1 +1,1 @@
-console.log('测试index.js');
+console.log('测试src/index.js');

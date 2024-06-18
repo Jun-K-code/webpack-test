@@ -1,8 +1,10 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
-module.exports = {
-  mode: 'development',
+const devConfig = require('./webpack.dev');
+const proConfig = require('./webpack.pro');
+
+const baseConfig = {
   entry: './src/index.js',
   output: {
     filename: '[name].[contenthash].js', // 输出文件名
@@ -31,3 +33,10 @@ module.exports = {
     }),
   ],
 };
+function getWebpackConfig(env) {
+  if (env === 'production') {
+    return { ...baseConfig, ...proConfig };
+  }
+  return { ...baseConfig, ...devConfig };
+}
+module.exports = getWebpackConfig;

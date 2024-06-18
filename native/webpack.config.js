@@ -15,12 +15,26 @@ const baseConfig = {
     rules: [
       {
         test: /\.css$/i,
+        exclude: /node_modules/,
         use: [
           'style-loader',
           {
             loader: 'css-loader',
             options: {
               modules: true,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.js$/i,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              cacheDirectory: true,
             },
           },
         ],

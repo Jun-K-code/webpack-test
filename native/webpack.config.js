@@ -27,6 +27,11 @@ const baseConfig = {
         ],
       },
       {
+        test: /\.scss$/i,
+        exclude: /node_modules/,
+        use: ['style-loader', 'css-loader', 'sass-loader'],
+      },
+      {
         test: /\.js$/i,
         exclude: /node_modules/,
         use: [

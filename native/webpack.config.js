@@ -51,6 +51,11 @@ const baseConfig = {
       template: './public/index.html',
     }),
   ],
+  resolve: {
+    alias: {
+      src: path.resolve(__dirname, 'src'),
+    },
+  },
 };
 function getWebpackConfig(env) {
   if (env === 'production') {

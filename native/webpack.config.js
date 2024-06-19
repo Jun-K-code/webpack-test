@@ -33,7 +33,8 @@ const baseConfig = {
       },
       {
         test: /\.js$/i,
-        exclude: /node_modules/,
+        include: [path.resolve(__dirname, 'src')],
+        exclude: [/node_modules/, path.resolve(__dirname, 'public')],
         use: [
           {
             loader: 'babel-loader',

@@ -36,6 +36,7 @@ const baseConfig = {
         include: [path.resolve(__dirname, 'src')],
         exclude: [/node_modules/, path.resolve(__dirname, 'public')],
         use: [
+          // 'thread-loader',
           {
             loader: 'babel-loader',
             options: {

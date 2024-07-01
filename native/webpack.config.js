@@ -10,7 +10,7 @@ const proConfig = require('./webpack.pro');
 const baseConfig = {
   entry: './src/index.js',
   output: {
-    filename: '[name].[contenthash].js', // 输出文件名
+    filename: 'static/js/[name].[contenthash:8].js', // 输出文件名
     path: path.resolve(__dirname, 'build'), // 输出的目录
     clean: true, // 在生成文件之前，清空 output 目录
   },
@@ -68,7 +68,9 @@ const baseConfig = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({
+      filename: 'static/css/[name].[contenthash:8].css',
+    }),
     new CssMinimizerPlugin({
       minimizerOptions: {
         preset: [

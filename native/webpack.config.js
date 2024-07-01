@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 const devConfig = require('./webpack.dev');
@@ -19,11 +20,24 @@ const baseConfig = {
         test: /\.css$/i,
         exclude: /node_modules/,
         use: [
-          'style-loader',
+          // 'style-loader',
+          MiniCSSExtractPlugin.loader,
           {
             loader: 'css-loader',
             options: {
               modules: true,
+            },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  [
+                    'postcss-preset-env', // 能解决大多数样式兼容性问题
+                  ],
+                ],
+              },
             },
           },
         ],
@@ -54,6 +68,7 @@ const baseConfig = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
     }),
+    new MiniCSSExtractPlugin()
   ],
   resolve: {
     alias: {

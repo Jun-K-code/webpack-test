@@ -5,7 +5,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 const devConfig = require('./webpack.dev');
-const proConfig = require('./webpack.pro');
 
 const baseConfig = {
   entry: './src/index.js',
@@ -71,17 +70,6 @@ const baseConfig = {
     new MiniCssExtractPlugin({
       filename: 'static/css/[name].[contenthash:8].css',
     }),
-    new CssMinimizerPlugin({
-      minimizerOptions: {
-        preset: [
-          'default',
-          {
-            // 删除所有注释(包括以 /*! 开头的注释)
-            discardComments: { removeAll: true },
-          },
-        ],
-      },
-    }),
   ],
   resolve: {
     alias: {
@@ -90,46 +78,61 @@ const baseConfig = {
   },
 };
 function getWebpackConfig(env) {
-  const isProduction = env === 'production';
+  const isProduction = env?.production;
+  const base = {
+    mode: isProduction ? 'production' : env?.development && 'development',
+    ...baseConfig,
+  };
   const optimization = {
     minimize: isProduction,
-    // minimizer: [
-    //   new TerserPlugin({
-    //     terserOptions: {
-    //       format: {
-    //         comments: false, // 表示移除注释
-    //       },
-    //       parse: {
-    //         ecma: 8, // 表示解析 ECMAScript 2017 代码
-    //       },
-    //       compress: {
-    //         ecma: 5, // 表示压缩时，保持 ECMAScript 5 兼容性
-    //         warnings: false, // 表示不显示压缩警告
-    //         comparisons: false, // 表示禁用比较操作的压缩，因为存在问题（参见相关 GitHub 问题）
-    //         inline: 2, // 表示内联函数
-    //         drop_debugger: true, // 移除debugger语句
-    //       },
-    //       mangle: {
-    //         safari10: true, // 兼容 Safari 10
-    //       },
-    //       // keep_classnames: isEnvProductionProfile,
-    //       // keep_fnames: isEnvProductionProfile,
-    //       output: {
-    //         ecma: 5, // ES5 兼容性
-    //         comments: false, // 移除注释
-    //         ascii_only: true, // ASCⅡ编码
-    //       },
-    //     },
-    //   }),
-    //   new CssMinimizerPlugin(),
-    // ],
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          format: {
+            comments: false, // 表示移除注释
+          },
+          parse: {
+            ecma: 8, // 表示解析 ECMAScript 2017 代码
+          },
+          compress: {
+            ecma: 5, // 表示压缩时，保持 ECMAScript 5 兼容性
+            warnings: false, // 表示不显示压缩警告
+            comparisons: false, // 表示禁用比较操作的压缩，因为存在问题（参见相关 GitHub 问题）
+            inline: 2, // 表示内联函数
+            drop_debugger: true, // 移除debugger语句
+          },
+          mangle: {
+            safari10: true, // 兼容 Safari 10
+          },
+          // keep_classnames: isEnvProductionProfile,
+          // keep_fnames: isEnvProductionProfile,
+          // output: {
+          //   ecma: 5, // ES5 兼容性
+          //   comments: false, // 移除注释
+          //   ascii_only: true, // ASCⅡ编码
+          // },
+        },
+      }),
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: [
+            'default',
+            {
+              // 删除所有注释(包括以 /*! 开头的注释)
+              discardComments: { removeAll: true },
+            },
+          ],
+        },
+      }),
+    ],
     splitChunks: {
       chunks: 'all',
     },
   };
+
   if (isProduction) {
-    return { ...baseConfig, optimization, ...proConfig };
+    return { ...base, optimization };
   }
-  return { ...baseConfig, ...devConfig };
+  return { ...base, ...devConfig };
 }
 module.exports = getWebpackConfig;

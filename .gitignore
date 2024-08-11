@@ -3,6 +3,7 @@
 # dependencies
 /react/node_modules
 /native/node_modules
+/mini-webpack/node_modules
 /.pnp
 .pnp.js
 

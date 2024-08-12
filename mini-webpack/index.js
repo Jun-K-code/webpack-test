@@ -3,7 +3,7 @@ import path from 'path';
 import parser from '@babel/parser';
 import traverse from '@babel/traverse';
 import ejs from 'ejs';
-import { transformFromAst } from 'babel-core';
+import { transformFromAst } from '@babel/core';
 
 let id = 0;
 
@@ -33,7 +33,7 @@ function createAsset(filePath) {
   });
 
   const { code } = transformFromAst(ast, null, {
-    presets: ['env'],
+    presets: ['@babel/preset-env'],
   });
   // console.log('测试code', code);
 

@@ -14,27 +14,37 @@
     return module.exports;
   }
 
-  require(1);
+  require(0);
 })({
-  1: [
+  0: [
     function (require, module, exports) {
-      // main.js
-      const { foo } = require('./foo.js');
+      'use strict';
 
-      foo();
+      var _foo = require('./foo.js');
+
+      var _foo2 = _interopRequireDefault(_foo);
+
+      function _interopRequireDefault(obj) {
+        return obj && obj.__esModule ? obj : { default: obj };
+      }
+
+      (0, _foo2.default)();
       console.log('main.js');
     },
-    { './foo.js': 2 },
+    { './foo.js': 1 },
   ],
-  2: [
+
+  1: [
     function (require, module, exports) {
-      // foo.js
-      const foo = () => {
+      'use strict';
+
+      Object.defineProperty(exports, '__esModule', {
+        value: true,
+      });
+
+      var foo = (exports.foo = function foo() {
         console.log('foo');
-      };
-      module.exports = {
-        foo,
-      };
+      });
     },
     {},
   ],

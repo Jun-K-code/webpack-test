@@ -5,6 +5,8 @@ import traverse from '@babel/traverse';
 import ejs from 'ejs';
 import { transformFromAst } from 'babel-core';
 
+let id = 0;
+
 // 创建资源
 function createAsset(filePath) {
   // 1、获取文件的内容
@@ -39,6 +41,8 @@ function createAsset(filePath) {
     filePath,
     code,
     deps,
+    mapping: {},
+    id: id++,
   };
 }
 
@@ -57,6 +61,7 @@ function createGraph() {
       // console.log('测试relativePath', relativePath);
       const child = createAsset(path.resolve('./example', relativePath));
       // console.log('测试child', child);
+      asset.mapping[relativePath] = child.id;
       queue.push(child);
     });
   }
@@ -74,10 +79,8 @@ function build(graph) {
   });
 
   const data = graph.map((asset) => {
-    return {
-      filePath: asset.filePath,
-      code: asset.code,
-    };
+    const { id, code, mapping } = asset;
+    return { id, code, mapping };
   });
   // console.log('测试data', data);
 

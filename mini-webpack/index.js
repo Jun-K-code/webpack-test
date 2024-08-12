@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import parser from '@babel/parser';
 import traverse from '@babel/traverse';
+import ejs from 'ejs';
+import { transformFromAst } from 'babel-core';
 
 // 创建资源
 function createAsset(filePath) {
@@ -28,9 +30,14 @@ function createAsset(filePath) {
     },
   });
 
+  const { code } = transformFromAst(ast, null, {
+    presets: ['env'],
+  });
+  // console.log('测试code', code);
+
   return {
     filePath,
-    source,
+    code,
     deps,
   };
 }
@@ -58,4 +65,26 @@ function createGraph() {
 }
 
 const graph = createGraph();
-console.log('测试graph', graph);
+// console.log('测试graph', graph);
+
+function build(graph) {
+  // 模板
+  const template = fs.readFileSync('./bundle.ejs', {
+    encoding: 'utf-8',
+  });
+
+  const data = graph.map((asset) => {
+    return {
+      filePath: asset.filePath,
+      code: asset.code,
+    };
+  });
+  // console.log('测试data', data);
+
+  const code = ejs.render(template, { data });
+  // console.log('测试code', code);
+
+  fs.writeFileSync('./dist/bundle.js', code);
+}
+
+build(graph);

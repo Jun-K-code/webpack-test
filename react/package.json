@@ -19,6 +19,12 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "@eslint/js": "^9.11.1",
+    "@typescript-eslint/eslint-plugin": "^8.7.0",
+    "@typescript-eslint/parser": "^8.7.0",
+    "cz-customizable": "^7.2.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
     "webpack-bundle-analyzer": "^4.10.2"
   },
   "scripts": {
@@ -46,5 +52,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "react/node_modules/cz-customizable"
+    }
   }
 }
